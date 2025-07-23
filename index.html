@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>100 razones para amarte</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      background-color: #fff0f5;
+      overflow-x: hidden;
+    }
+
+    .card, .carta-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+    }
+
+    .card {
+      height: 100vh;
+      justify-content: center;
+      position: relative;
+    }
+
+    .text {
+      color: #e35d8d;
+      font-size: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+      max-width: 500px;
+    }
+
+    .btn {
+      background: #ffb6c1;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 25px;
+      font-size: 16px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      background: #e35d8d;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .reason-card {
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 15px 20px;
+      margin: 10px;
+      max-width: 250px;
+      animation: fadeIn 1.2s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    }
+
+    #galeria {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .decor {
+      position: absolute;
+      top: -20px;
+      left: -20px;
+      width: 120px;
+      height: 120px;
+      background-image: url('https://i.imgur.com/Vz5Qn6n.png');
+      background-size: cover;
+      opacity: 0.3;
+      transform: rotate(-15deg);
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Interfaz inicial -->
+  <div class="card" id="mainCard">
+    <div class="decor"></div>
+    <div class="text" id="textoInicial">
+      Hola, mi amor.  
+      Hoy celebramos algo muy especial: 3 meses llenos de momentos lindos, risas y conexión que solo tú y yo entendemos.  
+      Te amo profundamente y me siento afortunado de compartir cada día contigo.  
+      Ahora... te quiero mostrar algo muy especial.
+    </div>
+    <button class="btn" onclick="accion1()">Ver algo especial...</button>
+  </div>
+
+  <!-- Carta introductoria -->
+  <div class="card hidden" id="cartaIntro">
+    <div class="text">
+      Amor, estos tres meses contigo han sido de lo más bonito que he vivido.  
+      Te amo por todo lo que eres, por cómo me haces sentir, por lo que compartimos.  
+      Y hoy quise hacer algo muy especial...  
+      Te voy a mostrar 100 razones por las que te amo.
+    </div>
+    <button class="btn" onclick="mostrarGaleria()">Descubrir las 100 razones</button>
+  </div>
+
+  <!-- Contenedor de la galería -->
+  <div id="cartaContainer" class="carta-container hidden">
+    <div id="galeria"></div>
+    <button class="btn" onclick="volver()">Volver</button>
+  </div>
+
+  <script>
+    const razones = [
+      "Porque llegaste a mi vida cuando no lo esperaba.",
+      "Porque desde el primer mensaje sentí algo diferente contigo.",
+      "Porque aunque no te haya tocado, siento que te pertenezco.",
+      "Porque tu voz ya es parte de mis días.",
+      "Porque en cada videollamada siento que el mundo se detiene.",
+      "Porque me haces sentir visto, querido y escuchado.",
+      "Porque nuestras conversaciones me llenan el alma.",
+      "Porque me haces reír como nadie, incluso desde una pantalla.",
+      "Porque te siento más cerca de lo que muchos que están aquí.",
+      "Porque cuando suena la notificación, sé que eres tú y sonrío.",
+      "Porque me inspiras a ser una mejor persona.",
+      "Porque contigo aprendí lo que es el amor a distancia.",
+      "Porque me haces sentir paz, aunque estés lejos.",
+      "Porque cada palabra tuya me abraza el corazón.",
+      "Porque nuestras pequeñas rutinas se sienten gigantes.",
+      "Porque tú me entiendes sin que lo diga.",
+      "Porque cada noche me voy a dormir pensando en ti.",
+      "Porque nunca imaginé poder amar tanto sin tocar.",
+      "Porque haces que el tiempo vuele cuando hablamos.",
+      "Porque me escuchas incluso cuando no digo nada.",
+      "Porque me haces sentir especial todos los días.",
+      "Porque no dejas de sorprenderme con tu ternura.",
+      "Porque estás incluso en mis sueños.",
+      "Porque contigo aprendí a tener paciencia.",
+      "Porque incluso en el silencio, me haces compañía.",
+      "Porque me haces sentir completo.",
+      "Porque contigo los problemas se sienten más pequeños.",
+      "Porque compartimos un amor sincero.",
+      "Porque me das seguridad.",
+      "Porque tú confías en mí.",
+      "Porque nuestras promesas se sienten reales.",
+      "Porque me encanta cómo piensas.",
+      "Porque me gusta cómo te ríes.",
+      "Porque me haces reír hasta con tus tonterías.",
+      "Porque te preocupas por mí.",
+      "Porque me das ganas de seguir soñando.",
+      "Porque me ilusiona nuestro futuro.",
+      "Porque contigo me siento en casa.",
+      "Porque siempre sabes qué decir.",
+      "Porque me haces sentir valioso.",
+      "Porque nunca me haces sentir solo.",
+      "Porque tu forma de ser es única.",
+      "Porque me gusta cómo me hablas.",
+      "Porque me haces sentir orgulloso.",
+      "Porque siempre estás para mí.",
+      "Porque eres constante incluso con la distancia.",
+      "Porque tu cariño es inigualable.",
+      "Porque me haces creer en el amor verdadero.",
+      "Porque incluso tus defectos me gustan.",
+      "Porque cada día contigo es especial.",
+      "Porque haces que valga la pena esperar.",
+      "Porque contigo no necesito más.",
+      "Porque me haces sentir suficiente.",
+      "Porque me das paz con solo verte.",
+      "Porque eres hermosa por dentro y por fuera.",
+      "Porque me haces sentir amado.",
+      "Porque contigo quiero construir todo.",
+      "Porque eres mi persona favorita.",
+      "Porque siempre encuentro refugio en ti.",
+      "Porque eres mi motivación diaria.",
+      "Porque me das razones para sonreír.",
+      "Porque tienes el corazón más bonito.",
+      "Porque me tratas con ternura.",
+      "Porque confías en mí.",
+      "Porque tu mirada (aunque sea en video) me derrite.",
+      "Porque siempre me haces sentir importante.",
+      "Porque te preocupas por mi bienestar.",
+      "Porque te encanta compartir tu mundo conmigo.",
+      "Porque tenemos sueños juntos.",
+      "Porque cada día contigo es una nueva aventura.",
+      "Porque aún en lo simple, contigo es mágico.",
+      "Porque tu forma de amar es real.",
+      "Porque no importa la distancia, te siento cerca.",
+      "Porque eres mi mejor coincidencia.",
+      "Porque me llenas el alma con tu forma de ser.",
+      "Porque contigo aprendí a amar de verdad.",
+      "Porque tu voz me tranquiliza.",
+      "Porque no me canso de hablar contigo.",
+      "Porque siempre me haces falta.",
+      "Porque me haces sentir afortunado.",
+      "Porque haces que la espera valga la pena.",
+      "Porque me motivas a ser mejor cada día.",
+      "Porque contigo quiero todo.",
+      "Porque cada día te amo más.",
+      "Porque eres mi lugar seguro.",
+      "Porque contigo aprendí a amar sin medidas.",
+      "Porque me haces sentir deseado.",
+      "Porque siempre estás en mi mente.",
+      "Porque no me imagino un futuro sin ti.",
+      "Porque haces que me sienta amado como nunca.",
+      "Porque aunque no nos hayamos abrazado, siento tu amor.",
+      "Porque contigo todo es más bonito.",
+      "Porque me entiendes como nadie.",
+      "Porque valoro cada segundo que hablo contigo.",
+      "Porque tu cariño me llena.",
+      "Porque contigo aprendí lo que es el amor paciente.",
+      "Porque me das motivos para seguir creyendo.",
+      "Porque no pasa un día sin que piense en ti.",
+      "Porque mi vida es mejor contigo.",
+      "Porque siento que te amo de verdad.",
+      "Porque no hay nadie como tú.",
+      "Porque eres única.",
+      "Porque me haces sentir amado todos los días.",
+      "Porque te amo, y quiero que nunca lo olvides."
+    ];
+
+    function accion1() {
+      document.getElementById("mainCard").classList.add("hidden");
+      document.getElementById("cartaIntro").classList.remove("hidden");
+    }
+
+    function mostrarGaleria() {
+      document.getElementById("cartaIntro").classList.add("hidden");
+      document.getElementById("cartaContainer").classList.remove("hidden");
+
+      const galeria = document.getElementById("galeria");
+      galeria.innerHTML = "";
+
+      let i = 0;
+      function mostrarSiguiente() {
+        if (i < razones.length) {
+          const card = document.createElement("div");
+          card.className = "reason-card";
+          card.textContent = `${i + 1}. ${razones[i]}`;
+          galeria.appendChild(card);
+          i++;
+          setTimeout(mostrarSiguiente, 80);
+        }
+      }
+
+      mostrarSiguiente();
+    }
+
+    function volver() {
+      document.getElementById("mainCard").classList.remove("hidden");
+      document.getElementById("cartaContainer").classList.add("hidden");
+      document.getElementById("galeria").innerHTML = "";
+    }
+  </script>
+
+</body>
+</html>
